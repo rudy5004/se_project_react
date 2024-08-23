@@ -46,6 +46,7 @@ function App() {
         buttonText="Add garmet"
         title="New garmet"
         activeModal={activeModal}
+        isOpen={activeModal === "add-garmet"}
         onClose={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">
