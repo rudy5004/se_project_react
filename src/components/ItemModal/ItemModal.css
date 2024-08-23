@@ -1,0 +1,39 @@
+.modal__content_type_image {
+  width: 498px;
+  height: 610px;
+  position: relative;
+  padding: 0 0 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal__image {
+  width: 498px;
+  height: 498px;
+  position: absolute;
+  object-fit: contain;
+  z-index: 1;
+}
+.modal__close_type_image {
+  z-index: 2;
+}
+.modal__footer {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-left: 32px;
+}
+.modal__caption {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  margin: 0;
+}
+.modal__weather {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  margin-bottom: 32px;
+  margin-top: 12px;
+}

@@ -1,0 +1,15 @@
+.footer {
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 89px 0 24px;
+  font-size: 16px;
+  line-height: 20px;
+}
+.footer_left-text {
+  margin: 0;
+}
+.footer_right-text {
+  margin: 0;
+}
