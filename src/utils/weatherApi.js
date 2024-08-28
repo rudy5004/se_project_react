@@ -12,7 +12,10 @@ export const getWeather = ({ latitude, longitude }, APIkey) => {
 export const filterWeatherData = (data) => {
   const result = {};
   result.city = data.name;
-  result.temp = { F: data.main.temp };
+  result.temp = {
+    F: Math.round(data.main.temp),
+    C: Math.round(((data.main.temp - 32) * 5) / 9),
+  };
   result.type = getWeatherType(result.temp.F);
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys, Date.now());
@@ -20,9 +23,7 @@ export const filterWeatherData = (data) => {
 };
 
 const isDay = ({ sunrise, sunset }, now) => {
-  //const nowUTC = now + new Date().getTimezoneOffset() * 60 * 1000;  works
-  //return sunrise * 1000 < nowUTC && nowUTC < sunset * 1000; works
-  return sunrise * 1000 < now && now < sunset * 1000; //doesnt work
+  return sunrise * 1000 < now && now < sunset * 1000;
 };
 const getWeatherType = ({ temperature }) => {
   if (temperature >= 86) {
