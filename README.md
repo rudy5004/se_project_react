@@ -1,8 +1,6 @@
-# Project 10: What to Wear React Project
+# Project 11: What to Wear React Project
 
-Welcome to the WTWR (What to Wear) React project! This project is focused on building the front end of a web application that recommends clothing based on real-time weather data. The application interacts with the OpenWeather API to fetch current weather conditions, then filters and displays relevant clothing items to the user.
-
-Throughout this project, you will create and style various React components, including weather cards, modals, and headers. You will also learn to manage React state, handle API requests, and implement responsive design principles to ensure the application looks great on all devices. By the end of this project, you'll have a fully functional front-end application ready for further enhancements.
+Welcome to the WTWR (What to Wear) React project! In this sprint, I focused on enhancing the web application by implementing a temperature unit toggle switch using React context and setting up a profile page route with React Router. I also handled form submissions with controlled components or refs and integrated a mock server to simulate API interactions. This setup helps with practicing state management, routing, and API communication. The updated application improves functionality and offers a more dynamic user experience.
 
 ### Tech Stack
 
@@ -16,6 +14,10 @@ Throughout this project, you will create and style various React components, inc
 - Git
 - GitHub
 - ESLint
+- React Context
+- React Router
+- JSON server
+- API Calls
 
 ## Deployment
 
