@@ -24,7 +24,6 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
 
-  /////// deleting handlecardclick ----
   const onCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
@@ -74,7 +73,7 @@ function App() {
     deleteItems(card._id)
       .then(() => {
         setClothingItems((prevItems) =>
-          prevItems.filter((item) => item.id !== card._id)
+          prevItems.filter((item) => item._id !== card._id)
         );
       })
       .catch(console.error);
@@ -91,8 +90,6 @@ function App() {
             <Route
               path="/"
               element={
-                //pass clothingItems as a prop
-                ////////////  replaced object with oncardclick...was handleCardClick
                 <Main
                   weatherData={weatherData}
                   onCardClick={onCardClick}
@@ -102,12 +99,11 @@ function App() {
             />
             <Route
               path="/profile"
-              // pass clothingItems as a prop?
-              ////////////  replaced object with oncardclick...was handleCardClick
               element={
                 <Profile
                   onCardClick={onCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

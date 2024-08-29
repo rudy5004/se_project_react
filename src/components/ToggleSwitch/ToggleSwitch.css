@@ -29,9 +29,6 @@
   left: 19px;
 }
 
-.switch__slider-C {
-}
-
 .switch__active {
   color: white;
   font-size: 16px;
@@ -39,14 +36,14 @@
 
 .switch__temp-F {
   position: absolute;
-  top: -1;
+  top: -10px;
   left: 32px;
   color: white;
 }
 
 .switch__temp-C {
   position: absolute;
-  top: -1;
-  left: 10 px;
+  top: -10px;
+  left: 10px;
   color: white;
 }

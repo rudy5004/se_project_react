@@ -2,8 +2,6 @@ import "./ItemModal.css";
 import closeIconWhite from "../../assets/closeiconwhite.png";
 
 function ItemModal({ activeModal, onClose, card, onDelete }) {
-  //debugger;
-  console.log("deleting card with ID", card._id);
   const handleDelete = () => {
     onDelete(card);
     onClose();

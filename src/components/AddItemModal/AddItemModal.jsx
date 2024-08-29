@@ -18,12 +18,12 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem(name, link, weather);
+    setName("");
+    setLink("");
+    setWeather("");
+    onClose();
   };
 
-  ///replaced
-  ///onSubmit={handleSubmit}
-  ///with
-  /// onAddItem={onAddItem}
   return (
     <ModalWithForm
       buttonText="Add garmet"
@@ -31,6 +31,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       onAddItem={onAddItem}
+      onSubmit={handleSubmit}
     >
       <label htmlFor="name" className="modal__label">
         Name
@@ -61,6 +62,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             id="hot"
             type="radio"
             name="weather"
+            value={"hot"}
             className="modal__radio modal__radio_type_radio"
             onChange={handleWeatherChange}
           />
@@ -75,6 +77,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             id="warm"
             type="radio"
             name="weather"
+            value="warm"
             className="modal__radio modal__radio_type_radio"
             onChange={handleWeatherChange}
           />
@@ -85,6 +88,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             id="cold"
             type="radio"
             name="weather"
+            value="cold"
             className="modal__radio modal__radio_type_radio"
             onChange={handleWeatherChange}
           />
