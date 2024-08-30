@@ -1,16 +1,33 @@
+import React, { useState } from "react";
 import "./ItemModal.css";
 import closeIconWhite from "../../assets/closeiconwhite.png";
 
 function ItemModal({ activeModal, onClose, card, onDelete }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleDelete = () => {
-    onDelete(card);
-    onClose();
+    setIsSubmitting(true);
+    onDelete(card)
+      .then(() => {
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error); // Handle submission error
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Revert button text after the process is completed
+      });
   };
+
   return (
     <div className={`modal ${activeModal === "preview" && "modal_opened"}`}>
       <div className="modal__content modal__content_type_image">
-        <button onClick={handleDelete} type="button" className="modal__delete">
-          Delete Item
+        <button
+          onClick={handleDelete}
+          type="button"
+          className="modal__delete"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Deleting..." : "Delete"}
         </button>
         <button
           onClick={onClose}

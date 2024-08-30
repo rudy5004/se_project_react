@@ -2,36 +2,55 @@ import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
+  // State hooks for managing input values
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
+
   const [link, setLink] = useState("");
   const handleUrlChange = (e) => {
     setLink(e.target.value);
   };
+
   const [weather, setWeather] = useState("");
   const handleWeatherChange = (e) => {
     setWeather(e.target.value);
   };
 
+  // State hook for managing submission status
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem(name, link, weather);
-    setName("");
-    setLink("");
-    setWeather("");
-    onClose();
+    setIsSubmitting(true); // Set submitting state to true
+
+    // The following block should be inside the handleSubmit function
+    onAddItem(name, link, weather)
+      .then(() => {
+        setName(""); // Reset name field
+        setLink(""); // Reset link field
+        setWeather(""); // Reset weather selection
+        onClose(); // Close the modal only after a successful response
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error); // Handle submission error
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Revert button text after the process is completed
+      });
   };
 
+  // Render the modal with form
   return (
     <ModalWithForm
-      buttonText="Add garmet"
-      title="New garmet"
+      buttonText={isSubmitting ? "Submitting..." : "Add garment"}
+      title="New garment"
       isOpen={isOpen}
       onClose={onClose}
       onAddItem={onAddItem}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit} // Pass handleSubmit function to the form
     >
       <label htmlFor="name" className="modal__label">
         Name
@@ -62,7 +81,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             id="hot"
             type="radio"
             name="weather"
-            value={"hot"}
+            value="hot"
             className="modal__radio modal__radio_type_radio"
             onChange={handleWeatherChange}
           />

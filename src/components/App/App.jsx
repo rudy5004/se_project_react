@@ -62,7 +62,7 @@ function App() {
       imageUrl: link,
       weather: weather,
     };
-    addItems(inputValues)
+    return addItems(inputValues)
       .then((inputValues) => {
         setClothingItems([inputValues, ...clothingItems]);
       })
@@ -70,13 +70,15 @@ function App() {
   }
 
   function handleDelete(card) {
-    deleteItems(card._id)
+    return deleteItems(card._id)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== card._id)
         );
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Error deleting item:", error);
+      });
   }
 
   return (
