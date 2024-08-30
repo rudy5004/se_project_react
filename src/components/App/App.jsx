@@ -62,23 +62,17 @@ function App() {
       imageUrl: link,
       weather: weather,
     };
-    return addItems(inputValues)
-      .then((inputValues) => {
-        setClothingItems([inputValues, ...clothingItems]);
-      })
-      .catch(console.error);
+    return addItems(inputValues).then((inputValues) => {
+      setClothingItems([inputValues, ...clothingItems]);
+    });
   }
 
   function handleDelete(card) {
-    return deleteItems(card._id)
-      .then(() => {
-        setClothingItems((prevItems) =>
-          prevItems.filter((item) => item._id !== card._id)
-        );
-      })
-      .catch((error) => {
-        console.error("Error deleting item:", error);
-      });
+    return deleteItems(card._id).then(() => {
+      setClothingItems((prevItems) =>
+        prevItems.filter((item) => item._id !== card._id)
+      );
+    });
   }
 
   return (
