@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
-  // State hooks for managing input values
+const AddItemModal = ({ onAddItem, isOpen, closeActiveModal }) => {
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -18,39 +17,38 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
     setWeather(e.target.value);
   };
 
-  // State hook for managing submission status
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle form submission
+  // Function to handle form submission.
+  // It prevents the default form behavior, starts the submission process, and resets the form after success.
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true); // Set submitting state to true
+    setIsSubmitting(true); // Set the submission status to true.
 
-    // The following block should be inside the handleSubmit function
     onAddItem(name, link, weather)
       .then(() => {
-        setName(""); // Reset name field
-        setLink(""); // Reset link field
-        setWeather(""); // Reset weather selection
-        onClose(); // Close the modal only after a successful response
+        setName(""); // Resets the name input field.
+        setLink(""); // Resets the link input field.
+        setWeather(""); // Resets the weather radio buttons.
+        closeActiveModal(); // Closes the modal after successful submission.
       })
       .catch((error) => {
-        console.error("Error submitting form:", error); // Handle submission error
+        console.error("Error submitting form:", error); // Handles form submission errors.
       })
       .finally(() => {
-        setIsSubmitting(false); // Revert button text after the process is completed
+        setIsSubmitting(false); // Resets the submission status.
       });
   };
 
-  // Render the modal with form
+  // Rendering the modal with the form, passing relevant props like title, button text, and form submission handler.
   return (
     <ModalWithForm
-      buttonText={isSubmitting ? "Submitting..." : "Add garment"}
+      buttonText={isSubmitting ? "Submitting..." : "Add garment"} // Changes the button text based on the submission status.
       title="New garment"
       isOpen={isOpen}
-      onClose={onClose}
+      closeActiveModal={closeActiveModal}
       onAddItem={onAddItem}
-      onSubmit={handleSubmit} // Pass handleSubmit function to the form
+      onSubmit={handleSubmit} // Handle form submission.
     >
       <label htmlFor="name" className="modal__label">
         Name
@@ -60,7 +58,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
           id="name"
           placeholder="Name"
           value={name}
-          onChange={handleNameChange}
+          onChange={handleNameChange} // Updates the name as the user types.
         />
       </label>
       <label htmlFor="imageUrl" className="modal__label">
@@ -71,7 +69,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
           id="imageUrl"
           placeholder="Image URL"
           value={link}
-          onChange={handleUrlChange}
+          onChange={handleUrlChange} // Updates the link as the user types.
         />
       </label>
       <fieldset className="modal__radio-buttons">
@@ -83,7 +81,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             name="weather"
             value="hot"
             className="modal__radio modal__radio_type_radio"
-            onChange={handleWeatherChange}
+            onChange={handleWeatherChange} // Updates the weather when "Hot" is selected.
           />
           Hot
         </label>
@@ -98,7 +96,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             name="weather"
             value="warm"
             className="modal__radio modal__radio_type_radio"
-            onChange={handleWeatherChange}
+            onChange={handleWeatherChange} // Updates the weather when "Warm" is selected.
           />
           Warm
         </label>
@@ -109,7 +107,7 @@ const AddItemModal = ({ onAddItem, isOpen, onClose }) => {
             name="weather"
             value="cold"
             className="modal__radio modal__radio_type_radio"
-            onChange={handleWeatherChange}
+            onChange={handleWeatherChange} // Updates the weather when "Cold" is selected.
           />
           Cold
         </label>

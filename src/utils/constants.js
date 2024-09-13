@@ -1,3 +1,8 @@
+// Exporting an array `weatherOptions` that contains different weather conditions (for day and night)
+// and their corresponding image URLs. Each object represents a specific condition:
+// - `day`: A boolean indicating whether it's daytime (true) or nighttime (false).
+// - `condition`: The weather condition (e.g., clear, clouds, fog).
+// - `url`: A dynamic URL to the image representing the weather condition.
 export const weatherOptions = [
   {
     day: true,
@@ -29,7 +34,6 @@ export const weatherOptions = [
     condition: "storm",
     url: new URL("../assets/day/storm.png", import.meta.url).href,
   },
-
   {
     day: false,
     condition: "clear",
@@ -61,7 +65,9 @@ export const weatherOptions = [
     url: new URL("../assets/day/storm.png", import.meta.url).href,
   },
 ];
-
+// Exporting `defaultWeatherOptions`, which provides default weather images for both day and night scenarios.
+// - `day`: An object representing default daytime weather.
+// - `night`: An object representing default nighttime weather.
 export const defaultWeatherOptions = {
   day: {
     day: true,
@@ -74,6 +80,8 @@ export const defaultWeatherOptions = {
     url: new URL("../assets/night/default.png", import.meta.url).href,
   },
 };
+
+// No comments for `defaultClothingItems`
 
 export const defaultClothingItems = [
   {
@@ -113,10 +121,13 @@ export const defaultClothingItems = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
   },
 ];
-
+// Exporting `coordinates`, which represent a specific set of geographical coordinates (latitude and longitude).
+// These coordinates can be used as default location data in the application.
 export const coordinates = {
   latitude: 30.026541,
   longitude: -115.843597,
 };
 
+// Exporting `APIkey`, which is the key used to authenticate requests to the weather API.
+// This key is required to make valid API requests to retrieve weather data.
 export const APIkey = "eacb6a733a2336ee814f0bd653e223dc";

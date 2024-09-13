@@ -1,19 +1,44 @@
+// Importing `useState` and `useEffect` from React to manage component state and handle side effects in the application.
 import { useState, useEffect } from "react";
+
+// Importing `Routes` and `Route` from `react-router-dom` to define client-side routing for different pages in the app.
 import { Routes, Route } from "react-router-dom";
+
+// Importing the global CSS file for styling the app.
 import "./App.css";
 
+// Importing `coordinates` and `APIkey` constants, which are used to fetch weather data for a specific location.
 import { coordinates, APIkey } from "../../utils/constants";
+
+// Importing the `Header` component, which displays the header of the application, including weather data and navigation.
 import Header from "../Header/Header";
+
+// Importing the `Main` component, which is the main content area displaying weather info and clothing items.
 import Main from "../Main/Main";
+
+// Importing the `ModalWithForm` component, which renders a modal with a form for adding or editing items.
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+
+// Importing the `Footer` component, which displays the footer section of the application.
 import Footer from "../Footer/Footer/";
+
+// Importing the `ItemModal` component, which displays a modal for previewing or deleting an item.
 import ItemModal from "../ItemModal/ItemModal";
+
+// Importing the `getWeather` and `filterWeatherData` functions to fetch and process weather data from the OpenWeather API.
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
+
+// Importing the `CurrentTemperatureUnitContext` to manage the current temperature unit (Fahrenheit or Celsius) across the app.
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+
+// Importing the `AddItemModal` component, which provides a modal for adding a new clothing item.
 import AddItemModal from "../AddItemModal/AddItemModal";
+
+// Importing the `Profile` component, which displays the user's profile page with their clothing items.
 import Profile from "../Profile/Profile";
+
+// Importing API functions (`deleteItems`, `addItems`, `getItems`) to manage CRUD operations for clothing items.
 import { deleteItems, addItems, getItems } from "../../utils/api";
-import LoginModal from "../LoginModal/LoginModal";
-import RegisterModal from "../RegisterModal/RegisterModal"; // Import the RegisterModal
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -22,37 +47,25 @@ function App() {
     city: "",
   });
   const [activeModal, setActiveModal] = useState("");
-  const [cardData, setCardData] = useState({});
+  const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
 
   const onCardClick = (card) => {
     setActiveModal("preview");
-    setCardData(card);
+    setSelectedCard(card);
   };
-
   const handleAddClick = () => {
-    setActiveModal("add-garment");
+    setActiveModal("add-garmet");
   };
-
-  // Function to open LoginModal --- > Incorporate into header later
-  const openLoginModal = () => {
-    setActiveModal("login");
-  };
-
-  // Function to open RegisterModal --- > Incorporate into header later
-  const openRegisterModal = () => {
-    setActiveModal("register");
-  };
-
   const closeActiveModal = () => {
     setActiveModal("");
   };
 
   const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit((prevUnit) => (prevUnit === "C" ? "F" : "C"));
+    if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
+    if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
   };
-
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -89,34 +102,6 @@ function App() {
     });
   }
 
-  // Function to simulate login
-  function onLogin({ email, password }) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === "user@example.com" && password === "password123") {
-          console.log("User logged in");
-          resolve();
-        } else {
-          reject(new Error("Invalid credentials"));
-        }
-      }, 1000);
-    });
-  }
-
-  // Function to simulate registration
-  function onRegister({ name, email, password }) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === "newuser@example.com") {
-          console.log("User registered successfully");
-          resolve();
-        } else {
-          reject(new Error("Error registering user"));
-        }
-      }, 1000);
-    });
-  }
-
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -149,30 +134,22 @@ function App() {
           <Footer />
         </div>
         <AddItemModal
-          closeActiveModal={closeActiveModal}
-          isOpen={activeModal === "add-garment"}
+          onClose={closeActiveModal}
+          isOpen={activeModal === "add-garmet"}
           onAddItem={onAddItem}
         />
         {activeModal === "preview" && (
           <ItemModal
-            handleDelete={handleDelete}
-            cardData={cardData}
-            closeActiveModal={closeActiveModal}
+            onDelete={handleDelete}
+            activeModal={activeModal}
+            card={selectedCard}
+            onClose={closeActiveModal}
           />
-        )}
-        {activeModal === "login" && (
-          <LoginModal
-            closeActiveModal={closeActiveModal}
-            onLogin={onLogin}
-            isOpen={activeModal === "login"}
-          />
-        )}
-        {activeModal === "register" && (
-          <RegisterModal
-            closeActiveModal={closeActiveModal}
-            onRegister={onRegister}
-            isOpen={activeModal === "register"}
-          />
+          {activeModal === "login" && (
+            <LoginModal 
+            closeModal={closeActiveModal} 
+            onLogin={handleLogin} 
+            />
         )}
       </div>
     </CurrentTemperatureUnitContext.Provider>

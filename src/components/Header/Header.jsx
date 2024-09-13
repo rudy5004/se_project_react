@@ -19,6 +19,7 @@ function Header({ handleAddClick, weatherData }) {
         {currentDate}, {weatherData.city}
       </p>
       <ToggleSwitch />
+
       <button
         onClick={handleAddClick}
         type="button"
@@ -26,6 +27,7 @@ function Header({ handleAddClick, weatherData }) {
       >
         + Add Clothes
       </button>
+
       <Link to="/profile" className="header__link">
         <div className="header__user-container">
           <p className="header__username">Terrance Tegegne</p>
