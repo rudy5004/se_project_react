@@ -1,22 +1,37 @@
-// Importing the CSS file for styling the `SideBar` component.
+import React, { useContext } from "react";
 import "./SideBar.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-// Importing the user's avatar image to be displayed in the sidebar.
-import avatar from "../../assets/avatar.png";
+function SideBar({ openEditProfileModal, handleSignOut }) {
+  const currentUser = useContext(CurrentUserContext);
 
-// Defining the `SideBar` component, which renders the sidebar section of the page.
-// This component displays the user's avatar and username.
-function SideBar() {
+  const generatePlaceholderAvatar = (name) => {
+    const firstLetter = name ? name.charAt(0).toUpperCase() : "?";
+    return <div className="sidebar__avatar-placeholder">{firstLetter}</div>;
+  };
+
   return (
     <div className="sidebar">
-      {/* Displaying the user's avatar image */}
-      <img src={avatar} alt="Default avatar" className="sidebar__avatar" />
-
-      {/* Displaying the user's name */}
-      <p className="sidebar__username">Terrance Tegegne</p>
+      <div className="sidebar__profile-info">
+        {currentUser?.avatar ? (
+          <img
+            src={currentUser.avatar}
+            alt="User avatar"
+            className="sidebar__avatar"
+          />
+        ) : (
+          generatePlaceholderAvatar(currentUser?.name)
+        )}
+        <p className="sidebar__username">{currentUser?.name || "User"}</p>
+      </div>
+      <button onClick={openEditProfileModal} className="sidebar__edit-button">
+        Change Profile Data
+      </button>
+      <button onClick={handleSignOut} className="sidebar__signout-button">
+        Sign out
+      </button>
     </div>
   );
 }
 
-// Exporting the `SideBar` component so it can be used in other parts of the application.
 export default SideBar;

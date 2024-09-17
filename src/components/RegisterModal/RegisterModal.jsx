@@ -1,62 +1,62 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ onRegister, isOpen, closeActiveModal }) => {
+function RegisterModal({
+  isOpen,
+  closeActiveModal,
+  onRegister,
+  openLoginModal,
+}) {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
-  const [password, setPassword] = useState("");
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      setIsSubmitting(false);
-      return;
-    }
 
     onRegister({ name, email, password })
       .then(() => {
         setName("");
         setEmail("");
         setPassword("");
-        setConfirmPassword("");
         closeActiveModal();
       })
       .catch((error) => {
         console.error("Error registering:", error);
       })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+      .finally(() => setIsSubmitting(false));
+  };
+
+  // Function to handle the third button click and open LoginModal
+  const handleThirdAction = () => {
+    closeActiveModal(); // Close the register modal
+    openLoginModal(); // Open the login modal
   };
 
   return (
     <ModalWithForm
-      buttonText={isSubmitting ? "Registering..." : "Register"}
-      title="Register"
+      title="Sign Up"
       isOpen={isOpen}
-      closeActiveModal={closeActiveModal}
       onSubmit={handleSubmit}
+      closeActiveModal={closeActiveModal}
+      buttonText={isSubmitting ? "Signing Up..." : "Sign Up"}
+      showThirdButton={true} // Show the third button
+      thirdButtonText="or Log In" // Set the text for the third button
+      onThirdAction={handleThirdAction} // Handler for the third button action
     >
       <label htmlFor="name" className="modal__label">
         Name
@@ -67,6 +67,7 @@ const RegisterModal = ({ onRegister, isOpen, closeActiveModal }) => {
           placeholder="Name"
           value={name}
           onChange={handleNameChange}
+          required
         />
       </label>
       <label htmlFor="email" className="modal__label">
@@ -75,9 +76,10 @@ const RegisterModal = ({ onRegister, isOpen, closeActiveModal }) => {
           type="email"
           className="modal__input"
           id="email"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={handleEmailChange}
+          required
         />
       </label>
       <label htmlFor="password" className="modal__label">
@@ -89,21 +91,11 @@ const RegisterModal = ({ onRegister, isOpen, closeActiveModal }) => {
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
-        />
-      </label>
-      <label htmlfor="confirmPassword" className="modal__label">
-        Confirm Password
-        <input
-          type="password"
-          className="modal__input"
-          id="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
+          required
         />
       </label>
     </ModalWithForm>
   );
-};
+}
 
 export default RegisterModal;

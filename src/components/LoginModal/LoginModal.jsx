@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function LoginModal({ isOpen, closeActiveModal, onLogin }) {
+function LoginModal({ isOpen, closeActiveModal, onLogin, openRegisterModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,13 +30,21 @@ function LoginModal({ isOpen, closeActiveModal, onLogin }) {
       .finally(() => setIsSubmitting(false));
   };
 
+  const handleSecondaryAction = () => {
+    closeActiveModal();
+    openRegisterModal();
+  };
+
   return (
     <ModalWithForm
-      title="Login"
+      title="Log In"
       isOpen={isOpen}
       onSubmit={handleSubmit}
       closeActiveModal={closeActiveModal}
-      buttonText={isSubmitting ? "Logging in..." : "Login"}
+      buttonText={isSubmitting ? "Logging In..." : "Log In"}
+      showSecondaryButton={true}
+      onSecondaryAction={handleSecondaryAction}
+      secondaryButtonText="or Sign Up"
     >
       <label htmlFor="email" className="modal__label">
         Email

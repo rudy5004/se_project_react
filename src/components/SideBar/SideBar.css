@@ -1,12 +1,71 @@
+/* Sidebar container */
 .sidebar {
   display: flex;
-  gap: 16px;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  padding: 20px;
 }
+
+/* Container for avatar and username side by side */
+.sidebar__profile-info {
+  display: flex;
+  align-items: center; /* Align avatar and username vertically centered */
+  gap: 16px; /* Space between the avatar and username */
+}
+
+/* Style for the avatar in the sidebar (actual user avatar) */
 .sidebar__avatar {
   width: 56px;
   height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
 }
+
+/* Style for the avatar placeholder in the sidebar */
+.sidebar__avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #4caf50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Style for the username displayed next to the avatar */
 .sidebar__username {
   font-weight: 700;
-  display: inline;
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Style for the Edit Profile button */
+.sidebar__edit-button {
+  margin: 24px 0 0 0;
+  border: 0;
+  padding: 0 0;
+  size: 20px;
+  line-height: 1.2;
+  font: rgba(0, 0, 0, 1);
+  font-weight: 700;
+  cursor: pointer;
+}
+/* Block: sidebar__sign-out-button */
+.sidebar__sign-out-button {
+  margin: 24px 0 0 0;
+  border: 0;
+  padding: 0 0;
+  size: 20px;
+  line-height: 1.2;
+  font: rgba(0, 0, 0, 1);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sidebar__sign-out-button:hover {
+  cursor: pointer;
+  background-color: #333; /* Darken background on hover */
 }

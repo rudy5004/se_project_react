@@ -1,15 +1,24 @@
-// Importing the CSS file for styling the `ItemCard` component.
 import "./ItemCard.css";
 
 // Defining the `ItemCard` component, which renders an individual clothing item as a card.
 // Props:
 // - `item`: An object representing a clothing item (name, imageUrl, etc.).
 // - `onCardClick`: A function to handle the event when the card is clicked.
-function ItemCard({ item, onCardClick }) {
+// - `onCardLike`: A function to handle the event when the like button is clicked.
+function ItemCard({ item, onCardClick, onCardLike }) {
   // Handling the click event on the card image.
   // When the image is clicked, it triggers the `onCardClick` function and passes the clicked item as an argument.
   const handleCardClick = () => {
     onCardClick(item);
+  };
+
+  // Handling the like button click event.
+  // It triggers the `onCardLike` function and passes the item data (id and isLiked status).
+  const handleLike = () => {
+    onCardLike({
+      id: item._id,
+      isLiked: item.isLiked, // Assuming `isLiked` is a boolean indicating if the item is liked
+    });
   };
 
   return (
@@ -24,6 +33,11 @@ function ItemCard({ item, onCardClick }) {
         src={item.imageUrl}
         alt={item.name}
       />
+
+      {/* Adding a like button that toggles the like status */}
+      <button className="card__like-button" onClick={handleLike}>
+        {item.isLiked ? "Unlike" : "Like"}
+      </button>
     </li>
   );
 }

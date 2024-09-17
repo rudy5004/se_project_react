@@ -1,0 +1,40 @@
+/* Block: edit-profile-modal */
+
+.edit-profile-modal__label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+  color: #333;
+}
+
+.edit-profile-modal__input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.edit-profile-modal__submit {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 1);
+  background-color: #000;
+  border-radius: 4px;
+  padding: 8px 12px;
+  height: 36px;
+  width: 128px;
+  border: 0;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.edit-profile-modal__submit:hover {
+  cursor: pointer;
+  background-color: #333;
+}

@@ -1,53 +1,55 @@
-// Importing `React` and `useState` to manage component state and handle form submission status.
-import React, { useState } from "react";
-
-// Importing the CSS file for styling the `ItemModal` component.
+import React, { useState, useEffect, useContext } from "react";
 import "./ItemModal.css";
-
-// Importing the close icon image, which is used in the modal to allow the user to close it.
 import closeIconWhite from "../../assets/closeiconwhite.png";
+import CurrentUserContext from "../../contexts/CurrentUserContext"; // Import CurrentUserContext
 
-// Defining the `ItemModal` component, which renders a modal displaying detailed information about a selected clothing item.
-// Props:
-// - `activeModal`: A string indicating which modal is currently open.
-// - `closeActiveModal`: A function to close the modal.
-// - `cardData`: An object representing the selected clothing item (name, imageUrl, etc.).
-// - `handleDelete`: A function to handle the deletion of the selected clothing item.
-function ItemModal({ activeModal, closeActiveModal, cardData, handleDelete }) {
-  // State to manage the submission status when deleting an item.
+function ItemModal({ isOpen, closeActiveModal, cardData, handleDelete }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Function to handle the deletion of the selected card (clothing item).
-  // It sets the submission state to true while the deletion is in progress and reverts after completion.
+  const currentUser = useContext(CurrentUserContext); // Subscribe to CurrentUserContext
+
+  useEffect(() => {
+    if (isOpen) {
+      console.log("Modal opened with cardData:", cardData);
+    }
+  }, [cardData, isOpen]);
+
+  // Check if the current user is the owner of the card
+  const isOwn = cardData.owner === currentUser?._id;
+
+  // Create a class for the delete button based on ownership
+  const itemDeleteButtonClassName = `item__delete-button ${
+    isOwn ? "item__delete-button_visible" : "item__delete-button_hidden"
+  }`;
+
   const handleDeleteItem = () => {
     setIsSubmitting(true);
     handleDelete(cardData)
       .then(() => {
-        closeActiveModal(); // Close the modal after successful deletion.
+        closeActiveModal();
       })
       .catch((error) => {
-        console.error("Error submitting form:", error); // Handle any error that occurs during deletion.
+        console.error("Error submitting form:", error);
       })
       .finally(() => {
-        setIsSubmitting(false); // Revert the submission state once the process is completed.
+        setIsSubmitting(false);
       });
   };
 
   return (
-    <div className={`modal ${activeModal === "preview" && "modal_opened"}`}>
+    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content modal__content_type_image">
-        {/* Button to delete the current item */}
-        <button
-          onClick={handleDeleteItem}
-          type="button"
-          className="modal__delete"
-          disabled={isSubmitting} // Disable the button while the deletion is in progress.
-        >
-          {isSubmitting ? "Deleting..." : "Delete"}{" "}
-          {/* Show appropriate text based on submission status */}
-        </button>
+        {isOwn && ( // Conditionally render the delete button if the user owns the item
+          <button
+            onClick={handleDeleteItem}
+            type="button"
+            className={itemDeleteButtonClassName}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Deleting..." : "Delete"}
+          </button>
+        )}
 
-        {/* Button to close the modal */}
         <button
           onClick={closeActiveModal}
           type="button"
@@ -60,14 +62,12 @@ function ItemModal({ activeModal, closeActiveModal, cardData, handleDelete }) {
           />
         </button>
 
-        {/* Displaying the image of the selected clothing item */}
         <img
           src={cardData.imageUrl}
-          alt="cardData link"
+          alt={cardData.name}
           className="modal__image"
         />
 
-        {/* Footer section of the modal containing the name and weather type of the item */}
         <div className="modal__footer">
           <h2 className="modal__caption">{cardData.name}</h2>
           <p className="modal__weather">Weather: {cardData.weather}</p>
@@ -77,5 +77,4 @@ function ItemModal({ activeModal, closeActiveModal, cardData, handleDelete }) {
   );
 }
 
-// Exporting the `ItemModal` component so it can be used in other parts of the application.
 export default ItemModal;
