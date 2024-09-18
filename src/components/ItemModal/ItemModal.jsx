@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./ItemModal.css";
+//import "./ItemModal.css";
 import closeIconWhite from "../../assets/closeiconwhite.png";
 import CurrentUserContext from "../../contexts/CurrentUserContext"; // Import CurrentUserContext
 
@@ -17,9 +17,9 @@ function ItemModal({ isOpen, closeActiveModal, cardData, handleDelete }) {
   // Check if the current user is the owner of the card
   const isOwn = cardData.owner === currentUser?._id;
 
-  // Create a class for the delete button based on ownership
-  const itemDeleteButtonClassName = `item__delete-button ${
-    isOwn ? "item__delete-button_visible" : "item__delete-button_hidden"
+  // changes
+  const itemDeleteButtonClassName = `modal__delete-button ${
+    isOwn ? "modal__delete-button_visible" : "modal__delete-button_hidden"
   }`;
 
   const handleDeleteItem = () => {

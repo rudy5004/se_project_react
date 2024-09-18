@@ -18,12 +18,12 @@ import {
   updateUser,
   addCardLike,
   removeCardLike,
-} from "../../utils/api"; // Added API functions for handling likes
+} from "../../utils/api";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import EditProfileModal from "../EditProfileModal/EditPorfileModal"; // Fixing typo
 import { signup, signin } from "../../utils/auth";
-import { getToken, setToken, removeToken } from "../../utils/token"; // Import removeToken
+import { getToken, setToken, removeToken } from "../../utils/token";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
@@ -63,13 +63,21 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // Fetch items and include the `isLiked` status for each item
   useEffect(() => {
+    const token = getToken();
     getItems()
       .then((data) => {
-        setClothingItems(data.reverse());
+        const itemsWithLikeStatus = data.map((item) => {
+          return {
+            ...item,
+            isLiked: item.likes.includes(userData?._id), // Check if the current user has liked the item
+          };
+        });
+        setClothingItems(itemsWithLikeStatus.reverse());
       })
       .catch(console.error);
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     const token = getToken();
@@ -87,7 +95,6 @@ function App() {
     }
   }, []);
 
-  // Ensure the avatar updates correctly after login or registration
   useEffect(() => {
     if (userData && !userData.avatar && !userData.hasPlaceholderAvatar) {
       setUserData((prev) => ({
@@ -130,21 +137,26 @@ function App() {
   // Handle likes and dislikes for cards
   const handleCardLike = ({ id, isLiked }) => {
     const token = getToken();
-    !isLiked
-      ? addCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
+    const apiCall = !isLiked ? addCardLike : removeCardLike;
+
+    apiCall(id, token)
+      .then(() => {
+        setClothingItems((cards) =>
+          cards.map((item) => {
+            if (item._id === id) {
+              return {
+                ...item,
+                isLiked: !isLiked, // Toggle isLiked
+                likes: isLiked
+                  ? item.likes.filter((userId) => userId !== userData._id)
+                  : [...item.likes, userData._id], // Update the likes array accordingly
+              };
+            }
+            return item;
           })
-          .catch((err) => console.log(err))
-      : removeCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err));
+        );
+      })
+      .catch((err) => console.error("Error updating like status:", err));
   };
 
   const onRegister = ({ name, email, password, avatar }) => {
@@ -153,7 +165,12 @@ function App() {
       .then((data) => {
         if (data.token) {
           setToken(data.token);
-          setUserData(data.user);
+          setUserData({
+            name: data.name,
+            avatar: data.avatar,
+            _id: data._id,
+            email: data.email,
+          });
           setIsLoggedIn(true);
           navigate("/profile");
         } else {
@@ -170,7 +187,12 @@ function App() {
       .then((data) => {
         if (data.token) {
           setToken(data.token);
-          setUserData(data.user);
+          setUserData({
+            name: data.name,
+            avatar: data.avatar,
+            _id: data._id,
+            email: data.email,
+          });
           setIsLoggedIn(true);
           navigate("/profile");
         } else {
@@ -182,12 +204,11 @@ function App() {
       });
   };
 
-  // Handle sign out logic
   const handleSignOut = () => {
-    removeToken(); // Remove token from local storage
-    setIsLoggedIn(false); // Update logged in state
-    setUserData(null); // Clear user data
-    navigate("/"); // Redirect to home page
+    removeToken();
+    setIsLoggedIn(false);
+    setUserData(null);
+    navigate("/");
   };
 
   return (
@@ -252,7 +273,7 @@ function App() {
             closeActiveModal={closeActiveModal}
             onLogin={onLogin}
             isOpen={activeModal === "login"}
-            openRegisterModal={() => openModal("register")} // Added this line to open Sign Up modal
+            openRegisterModal={() => openModal("register")}
           />
           <RegisterModal
             closeActiveModal={closeActiveModal}

@@ -26,3 +26,9 @@
   height: 328px;
   cursor: pointer;
 }
+.card__like-button {
+  background-color: transparent;
+  border: 0;
+  position: absolute;
+  top: 30px;
+}

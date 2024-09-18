@@ -46,26 +46,21 @@
 .sidebar__edit-button {
   margin: 24px 0 0 0;
   border: 0;
-  padding: 0 0;
-  size: 20px;
+  padding: 0;
+  font-size: 20px;
   line-height: 1.2;
-  font: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  cursor: pointer;
-}
-/* Block: sidebar__sign-out-button */
-.sidebar__sign-out-button {
-  margin: 24px 0 0 0;
-  border: 0;
-  padding: 0 0;
-  size: 20px;
-  line-height: 1.2;
-  font: rgba(0, 0, 0, 1);
   font-weight: 700;
   cursor: pointer;
 }
 
-.sidebar__sign-out-button:hover {
+/* Block: sidebar__signout-button */
+.sidebar__signout-button {
+  margin: 8px 0 0 0;
+  border: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
   cursor: pointer;
-  background-color: #333; /* Darken background on hover */
+  align-self: flex-start;
 }

@@ -10,6 +10,7 @@ function RegisterModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(""); // State for the optional avatar field
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleNameChange = (e) => {
@@ -24,15 +25,20 @@ function RegisterModal({
     setPassword(e.target.value);
   };
 
+  const handleAvatarChange = (e) => {
+    setAvatar(e.target.value); // Update avatar state
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    onRegister({ name, email, password })
+    onRegister({ name, email, password, avatar }) // Pass the avatar field to the onRegister function
       .then(() => {
         setName("");
         setEmail("");
         setPassword("");
+        setAvatar(""); // Reset the avatar field
         closeActiveModal();
       })
       .catch((error) => {
@@ -92,6 +98,17 @@ function RegisterModal({
           value={password}
           onChange={handlePasswordChange}
           required
+        />
+      </label>
+      <label htmlFor="avatar" className="modal__label">
+        Avatar (Optional)
+        <input
+          type="text"
+          className="modal__input"
+          id="avatar"
+          placeholder="Avatar URL"
+          value={avatar}
+          onChange={handleAvatarChange}
         />
       </label>
     </ModalWithForm>
