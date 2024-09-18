@@ -11,7 +11,6 @@ function EditProfileModal({ isOpen, closeActiveModal, onUpdateUser }) {
   // Populate the form fields with current user data when the modal opens
   useEffect(() => {
     if (isOpen && currentUser) {
-      console.log(currentUser); // Debugging: check if avatar is present
       setName(currentUser.name || "");
       setAvatar(currentUser.avatar || "");
     }
@@ -41,12 +40,12 @@ function EditProfileModal({ isOpen, closeActiveModal, onUpdateUser }) {
       closeActiveModal={closeActiveModal}
       buttonText={isSubmitting ? "Saving..." : "Save Changes"}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="editProfileModalname" className="modal__label">
         Name
         <input
           type="text"
           className="modal__input"
-          id="name"
+          id="editProfileModalname"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required

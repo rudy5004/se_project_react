@@ -3,6 +3,68 @@
   position: relative;
   display: flex;
   justify-content: center;
+  flex-direction: column; /* Ensure the content is stacked */
+  align-items: center;
+}
+
+.card__header {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  align-items: center; /* Align the items vertically */
+  gap: 10px; /* Add 10px of space between the elements */
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  left: 0;
+
+  padding: 0; /* Remove padding to keep the elements centered */
+}
+
+.card__name {
+  margin: 0;
+  border-radius: 4px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Slightly transparent background */
+  padding: 2px 12px;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.card__image {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 19px;
+  height: 328px;
+  cursor: pointer;
+  object-fit: cover; /* Ensures the image maintains its aspect ratio */
+}
+
+.card__like-button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+/* .card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  width: 323px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .card__name {
@@ -31,4 +93,4 @@
   border: 0;
   position: absolute;
   top: 30px;
-}
+} */

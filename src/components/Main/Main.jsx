@@ -18,7 +18,13 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 // - `weatherData`: An object containing weather information (temperature, type, city).
 // - `onCardClick`: A function to handle when a clothing item card is clicked.
 // - `clothingItems`: An array of clothing items to be displayed based on the current weather.
-function Main({ weatherData, onCardClick, clothingItems, onCardLike }) {
+function Main({
+  weatherData,
+  onCardClick,
+  clothingItems,
+  onCardLike,
+  isLoggedIn,
+}) {
   // Using the `useContext` hook to access the current temperature unit (F or C) from the context.
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
@@ -47,13 +53,12 @@ function Main({ weatherData, onCardClick, clothingItems, onCardLike }) {
             })
             .map((item) => {
               return (
-                // Rendering each clothing item as an `ItemCard` component.
                 <ItemCard
                   key={item._id}
                   item={item}
                   onCardClick={onCardClick}
                   onCardLike={onCardLike}
-                  // Handling card click events.
+                  isLoggedIn={isLoggedIn}
                 />
               );
             })}

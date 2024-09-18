@@ -64,48 +64,48 @@ function RegisterModal({
       thirdButtonText="or Log In" // Set the text for the third button
       onThirdAction={handleThirdAction} // Handler for the third button action
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="registerModalName" className="modal__label">
         Name
         <input
           type="text"
           className="modal__input"
-          id="name"
+          id="registerModalName"
           placeholder="Name"
           value={name}
           onChange={handleNameChange}
           required
         />
       </label>
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="registerEmail" className="modal__label">
         Email
         <input
           type="email"
           className="modal__input"
-          id="email"
+          id="registerEmail"
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="registerPassword" className="modal__label">
         Password
         <input
           type="password"
           className="modal__input"
-          id="password"
+          id="registerPassword"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
           required
         />
       </label>
-      <label htmlFor="avatar" className="modal__label">
+      <label htmlFor="avatarOptional" className="modal__label">
         Avatar (Optional)
         <input
           type="text"
           className="modal__input"
-          id="avatar"
+          id="avatarOptional"
           placeholder="Avatar URL"
           value={avatar}
           onChange={handleAvatarChange}

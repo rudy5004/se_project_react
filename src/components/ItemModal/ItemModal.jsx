@@ -10,7 +10,6 @@ function ItemModal({ isOpen, closeActiveModal, cardData, handleDelete }) {
 
   useEffect(() => {
     if (isOpen) {
-      console.log("Modal opened with cardData:", cardData);
     }
   }, [cardData, isOpen]);
 

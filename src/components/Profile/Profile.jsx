@@ -7,7 +7,8 @@ function Profile({
   clothingItems,
   handleAddClick,
   openEditProfileModal,
-  handleSignOut, // Add handleSignOut as a prop
+  handleSignOut,
+  onCardLike,
 }) {
   return (
     <div className="profile">
@@ -24,6 +25,7 @@ function Profile({
           onCardClick={onCardClick}
           clothingItems={clothingItems}
           handleAddClick={handleAddClick}
+          onCardLike={onCardLike}
         />
       </section>
     </div>

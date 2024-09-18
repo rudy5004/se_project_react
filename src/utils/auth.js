@@ -9,9 +9,7 @@ export const signup = ({ name, email, password, avatar }) => {
     },
     body: JSON.stringify({ name, email, password, avatar }),
   }).then((res) => {
-    console.log("Signup response status:", res.status); // Debug response status
     return res.json().then((data) => {
-      console.log("Signup response body:", data); // Debug response body
       return data;
     });
   });
@@ -26,9 +24,7 @@ export const signin = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   }).then((res) => {
-    console.log("Signin response status:", res.status); // Debug response status
     return res.json().then((data) => {
-      console.log("Signin response body:", data); // Debug response body
       return data;
     });
   });

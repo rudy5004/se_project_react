@@ -235,7 +235,8 @@ function App() {
                     weatherData={weatherData}
                     onCardClick={onCardClick}
                     clothingItems={clothingItems}
-                    onCardLike={handleCardLike} // Pass handleCardLike to Main
+                    onCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />

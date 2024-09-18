@@ -3,7 +3,12 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import "./ClothesSection.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext"; // Import the context
 
-function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
+function ClothesSection({
+  onCardClick,
+  clothingItems,
+  handleAddClick,
+  onCardLike,
+}) {
   const currentUser = useContext(CurrentUserContext); // Get current user data from context
 
   // Make sure currentUser exists before trying to access _id
@@ -27,7 +32,12 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
       <ul className="cards__list clothes-section__cards-list">
         {userClothingItems.length > 0 ? (
           userClothingItems.map((item) => (
-            <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
+            <ItemCard
+              key={item._id}
+              item={item}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+            />
           ))
         ) : (
           <p className="clothes-section__no-items">No items to display.</p>
