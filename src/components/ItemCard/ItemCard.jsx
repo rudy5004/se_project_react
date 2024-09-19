@@ -19,8 +19,6 @@ function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
       {/* Wrap the h2 and button in a container */}
       <div className="card__header">
         <h2 className="card__name">{item.name}</h2>
-
-        {/* Only show the like button if the user is logged in */}
         {isLoggedIn && (
           <button className="card__like-button" onClick={handleLike}>
             <img

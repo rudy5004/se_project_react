@@ -8,6 +8,7 @@ function ClothesSection({
   clothingItems,
   handleAddClick,
   onCardLike,
+  isLoggedIn,
 }) {
   const currentUser = useContext(CurrentUserContext); // Get current user data from context
 
@@ -37,6 +38,7 @@ function ClothesSection({
               item={item}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
+              isLoggedIn={isLoggedIn}
             />
           ))
         ) : (

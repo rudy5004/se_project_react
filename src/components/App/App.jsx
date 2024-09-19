@@ -125,13 +125,9 @@ function App() {
   };
 
   const handleUpdateUser = ({ name, avatar }) => {
-    return updateUser({ name, avatar })
-      .then((updatedUser) => {
-        setUserData(updatedUser);
-      })
-      .catch((error) => {
-        console.error("Error updating user:", error);
-      });
+    return updateUser({ name, avatar }).then((updatedUser) => {
+      setUserData(updatedUser); // Only handle success here
+    });
   };
 
   // Handle likes and dislikes for cards
@@ -178,30 +174,26 @@ function App() {
         }
       })
       .catch((error) => {
-        console.error("Error during registration/login:", error);
+        console.error("Error during registration or login:", error);
       });
   };
 
   const onLogin = ({ email, password }) => {
-    return signin({ email, password })
-      .then((data) => {
-        if (data.token) {
-          setToken(data.token);
-          setUserData({
-            name: data.name,
-            avatar: data.avatar,
-            _id: data._id,
-            email: data.email,
-          });
-          setIsLoggedIn(true);
-          navigate("/profile");
-        } else {
-          console.error("Token not found in login response.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error logging in:", error);
-      });
+    return signin({ email, password }).then((data) => {
+      if (data.token) {
+        setToken(data.token);
+        setUserData({
+          name: data.name,
+          avatar: data.avatar,
+          _id: data._id,
+          email: data.email,
+        });
+        setIsLoggedIn(true);
+        navigate("/profile");
+      } else {
+        console.error("Token not found in login response.");
+      }
+    });
   };
 
   const handleSignOut = () => {
@@ -222,11 +214,9 @@ function App() {
               handleAddClick={() => openModal("add-garment")}
               weatherData={weatherData}
               isLoggedIn={isLoggedIn}
-              userData={userData}
               openLoginModal={() => openModal("login")}
               openRegisterModal={() => openModal("register")}
             />
-
             <Routes>
               <Route
                 path="/"
@@ -249,8 +239,9 @@ function App() {
                       clothingItems={clothingItems}
                       handleAddClick={() => openModal("add-garment")}
                       openEditProfileModal={() => openModal("edit-profile")}
-                      onCardLike={handleCardLike} // Pass handleCardLike to Profile
-                      handleSignOut={handleSignOut} // Pass handleSignOut to Profile
+                      onCardLike={handleCardLike}
+                      handleSignOut={handleSignOut}
+                      isLoggedIn={isLoggedIn}
                     />
                   </ProtectedRoute>
                 }
