@@ -1,4 +1,4 @@
-# Project 14: What to Wear React Project - Front End
+# Project 15: What to Wear React Project - Front End
 
 In this project, I implemented a full-stack application that connects a React frontend to an Express backend.
 
@@ -42,3 +42,4 @@ Backend
 ## Deployment
 
 Link to back-end repo: [se_project_express] (https://github.com/rudy5004/se_project_express)
+Link to website hosted on Google VM cloud: https://wtwr.mylogisoft.com
