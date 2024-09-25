@@ -1,6 +1,5 @@
 import { getToken } from "./token"; // Import getToken to retrieve the JWT
-
-export const baseUrl = "http://localhost:3001";
+import { baseUrl } from "./constants";
 
 // Utility function to check response status
 function checkResponse(res) {
@@ -85,7 +84,7 @@ export {
   getItems,
   getUser,
   updateUser,
-  addCardLike, // Export addCardLike
-  removeCardLike, // Export removeCardLike
+  addCardLike,
+  removeCardLike,
   checkResponse,
 };

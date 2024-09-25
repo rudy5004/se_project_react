@@ -1,8 +1,3 @@
-// Exporting an array `weatherOptions` that contains different weather conditions (for day and night)
-// and their corresponding image URLs. Each object represents a specific condition:
-// - `day`: A boolean indicating whether it's daytime (true) or nighttime (false).
-// - `condition`: The weather condition (e.g., clear, clouds, fog).
-// - `url`: A dynamic URL to the image representing the weather condition.
 export const weatherOptions = [
   {
     day: true,
@@ -128,6 +123,8 @@ export const coordinates = {
   longitude: -115.843597,
 };
 
-// Exporting `APIkey`, which is the key used to authenticate requests to the weather API.
-// This key is required to make valid API requests to retrieve weather data.
 export const APIkey = "eacb6a733a2336ee814f0bd653e223dc";
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwr.mylogisoft.com"
+    : "http://localhost:3001";

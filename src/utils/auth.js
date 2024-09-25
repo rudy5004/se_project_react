@@ -1,6 +1,5 @@
 import { checkResponse } from "./api"; // Import checkResponse from api.js
-
-export const baseUrl = "http://localhost:3001";
+import { baseUrl } from "./constants";
 
 // Function to handle user signup
 export const signup = ({ name, email, password, avatar }) => {

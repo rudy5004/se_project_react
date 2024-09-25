@@ -2,7 +2,7 @@
   "name": "se_project_react",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rudy5004.github.io/se_project_react/",
+  "homepage": "https://wtwr.mylogisoft.com",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
@@ -10,9 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* clayschurwon@wtwr.mylogisoft.com:/home/clayschurwon/frontend"
   },
   "dependencies": {
+    "dotenv": "16.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "6.26.1"
