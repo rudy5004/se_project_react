@@ -101,7 +101,7 @@ function RegisterModal({
         />
       </label>
       <label htmlFor="avatarOptional" className="modal__label">
-        Avatar (Optional)
+        Avatar
         <input
           type="text"
           className="modal__input"

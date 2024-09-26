@@ -42,4 +42,7 @@ Backend
 ## Deployment
 
 Link to back-end repo: [se_project_express] (https://github.com/rudy5004/se_project_express)
-Link to website hosted on Google VM cloud: https://wtwr.mylogisoft.com
+Links:
+https://wtwr.mylogisoft.com
+https://www.wtwr.mylogisoft.com
+https://api.wtwr.mylogisoft.com
